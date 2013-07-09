@@ -31,14 +31,32 @@
 			<?php if( !empty($_POST['image']) || !empty($_GET['image']) ) { ?>
 				<dt>Title:</dt>
 				<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
+				<dt>Description:</dt>
+				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
 				<dt>Image:</dt>
 				<dd>
 					<input type="text" name="image" class="long" value="<?php printReqVar('image'); ?>"/>
 				</dd>
 				<dt>Site:</dt>
 				<dd>
-					<input type="text" name="referer" class="long" value="<?php printReqVar('referer'); ?>"/>
+					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
 				</dd>
+			<?php } elseif( !empty($_POST['video']) || !empty($_GET['video']) ) { ?>
+				<dt>Title:</dt>
+				<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
+				<dt>Description:</dt>
+				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
+				<dt>Image:</dt>
+				<dd>
+					<input type="text" name="video" class="long" value="<?php printReqVar('video'); ?>"/>
+				</dd>
+				<dt>Site:</dt>
+				<dd>
+					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
+				</dd>
+				<input type="hidden" name="height" value="<?php printReqVar('height'); ?>"/>
+				<input type="hidden" name="width" value="<?php printReqVar('width'); ?>"/>
+				<input type="hidden" name="video_type" value="<?php printReqVar('video_type'); ?>"/>
 			<?php } else { ?>
 				<dt>Text:</dt>
 				<dd><textarea id="title" name="title"><?php printReqVar('title'); ?></textarea></dd>

@@ -14,9 +14,12 @@ if( isset($_POST['login']) ) {
 		include( ASAPH_PATH.'admin/templates/remote-login.html.php' );
 	}
 }
-else if( !empty($_POST['post']) && (!empty($_POST['image']) || !empty($_POST['url'])) ) {
+else if( !empty($_POST['post'])){ //} && (!empty($_POST['image']) || !empty($_POST['url'])) ) {
 	if( !empty($_POST['image']) ) {
-		$status = $asaphPost->postImage( $_POST['image'], $_POST['referer'], $_POST['title'] );
+		$status = $asaphPost->postImage( $_POST['image'], $_POST['source'], $_POST['title'], $_POST['description'] );
+	}
+	if( !empty($_POST['video']) ) {
+		$status = $asaphPost->postVideo( $_POST['video'], $_POST['source'], $_POST['video_type'], $_POST['width'], $_POST['height'], $_POST['title'], $_POST['description'] );
 	}
 	if( !empty($_POST['url']) ) {
 		$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'] );

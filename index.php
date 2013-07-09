@@ -1,6 +1,6 @@
 <?php 
 // Asaph v1.0 - www.phoboslab.org 
-
+date_default_timezone_set("Europe/Berlin");
 define( 'ASAPH_PATH', '' );
 require_once( ASAPH_PATH.'lib/asaph.class.php' );
 

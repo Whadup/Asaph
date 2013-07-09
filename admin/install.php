@@ -12,24 +12,46 @@ header( 'Content-type: text/html; charset=utf-8' );
 
 $createTablesSQL = array(
 	'CREATE TABLE `'.ASAPH_TABLE_POSTS.'` (
-		`id` int(11) NOT NULL auto_increment,
-		`userId` int(11) NOT NULL,
-		`hash` char(32) NOT NULL,
-		`created` datetime NOT NULL,
-		`source` varchar(255) NOT NULL,
-		`thumb` varchar(255) NOT NULL,
-		`image` varchar(255) NOT NULL,
-		`title` text NOT NULL,
-		PRIMARY KEY  (`id`)
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `userId` int(11) NOT NULL,
+	  `hash` char(32) NOT NULL,
+	  `created` datetime NOT NULL,
+	  `title` text NOT NULL,
+	  `description` text NOT NULL,
+	  `source` varchar(256) NOT NULL,
+	  `image` int(11) DEFAULT NULL,
+	  `quote` int(11) DEFAULT NULL,
+	  `video` int(11) DEFAULT NULL,
+	  `link` int(11) DEFAULT NULL,
+	  PRIMARY KEY (`id`)
 	) ENGINE=MyISAM CHARSET=utf8',
-	
-	'CREATE TABLE `'.ASAPH_TABLE_USERS.'` (
-		`id` int(11) NOT NULL auto_increment,
-		`name` varchar(255) NOT NULL,
-		`pass` char(32) NOT NULL,
-		`loginId` char(32) NOT NULL,
-		PRIMARY KEY  (`id`)
+
+	'CREATE TABLE `asaph_users` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `name` varchar(255) NOT NULL,
+	  `pass` char(32) NOT NULL,
+	  `loginId` char(32) NOT NULL,
+	  PRIMARY KEY (`id`)
 	) ENGINE=MyISAM CHARSET=utf8',
+
+'CREATE TABLE `asaph_images` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `image` varchar(128) NOT NULL,
+  `thumb` varchar(128) NOT NULL,
+  `width` int(11) NOT NULL,
+  `height` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;',
+
+'CREATE TABLE `asaph_videos` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `src` text NOT NULL,
+  `type` varchar(128) NOT NULL,
+  `width` int(11) NOT NULL,
+  `height` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;',
+
 );
 
 $requirements = array(

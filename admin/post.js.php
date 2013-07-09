@@ -63,9 +63,72 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		this.dialog.appendChild( closeDialog );
 		this.dialog.appendChild( this.iframe );
 		this.menu.appendChild( this.dialog );
+
+		metaData = document.getElementsByTagName("meta");
+		url = getData(metaData,"og:url");
+		title = getData(metaData,"og:title");
+		type = getData(metaData,"og:type");
+		image = getData(metaData,"og:image");
+		site_name = getData(metaData,"og:site_name");
+		description = getData(metaData,"og:description");
+		video = getData(metaData,"og:video");
+		width = getData(metaData,"og:width");
+		height = getData(metaData,"og:height");
+		video_type = getData(metaData,"og:video:type");
+		video_width = getData(metaData,"og:video:width");
+		video_height = getData(metaData,"og:video:height");
+		if(type=="instapp:photo")
+		{
+			this.loadIFrame( {
+			'title': title,
+			'image' : image,
+			'description' : description,
+			'source' : url,
+			'xhrLocation': document.location.href.replace(/#.*$/,''),
+			'width' :width,
+			'height':height
+		});
+		}
+		if(type=="image")
+		{
+			this.loadIFrame( {
+			'title': title,
+			'image' : image,
+			'description' : description,
+			'source' : url,
+			'xhrLocation': document.location.href.replace(/#.*$/,'')
+		});
+		}
+		if(type=="video")
+		{
+			alert("video");
+			this.loadIFrame( {
+			'title': title,
+			'video' : video,
+			'description' : description,
+			'source' : url,
+			'xhrLocation': document.location.href.replace(/#.*$/,''),
+			'width' :video_width,
+			'height':video_height,
+			'video_type' : video_type
+
+		});
+		}
+
 	}
 	
-	
+	function getData(array,key)
+	{
+		for(i = 0;i<array.length;i++)
+		{
+			if(array[i].getAttribute("property")==key)
+			{
+				return array[i].getAttribute("content");
+			}
+		}
+		return "";
+	}
+
 	this.loadIFrame = function( params ) {
 		this.dialog.style.display = 'block';
 		var reqUrl = this.postURL + '?nocache=' + parseInt(Math.random()*10000);
@@ -90,26 +153,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		return false;
 	}
 	
-	
-	this.selectImage = function( image ) {
-		var title = image.title ? image.title : ( image.alt ? image.alt : document.title );
-		var imageSrc = image.src;
-		if( 
-			image.parentNode.tagName.match(/^a$/i) &&
-			image.parentNode.href &&
-			image.parentNode.href.match(/\.(jpe?g|gif|png)$/i)
-		) {
-			imageSrc = image.parentNode.href;
-		}
-		this.loadIFrame( {
-			'title': title,
-			'image': imageSrc,
-			'referer': document.location.href,
-			'xhrLocation': document.location.href.replace(/#.*$/,'')
-		});
-		return false;
-	}
-	
+		
 	
 	this.checkSuccess = function() {
 		if( document.location.href.match(/#Asaph_Success/) ) {
@@ -127,7 +171,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		this.checkSuccessInterval = setInterval( function() { that.checkSuccess(); }, 500 );
 		this.menu.style.display = 'block';
 		
-		var images = document.getElementsByTagName('img');
+		/*var images = document.getElementsByTagName('img');
 		for( var i=0; i<images.length; i++ ) {
 			var img = images[i];
 			if( img && img.src && img.src.match(/(space|blank)[^\/]*\.gif$/i) ) {
@@ -140,7 +184,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				};
 				img.className = img.className ? img.className + ' Asaph_PostImage' : 'Asaph_PostImage';
 			}
-		}
+		}*/
 	}
 	
 	
@@ -150,7 +194,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		clearInterval( this.checkSuccessInterval );
 		this.menu.style.display = 'none';
 		this.dialog.style.display = 'none';
-		
+		/*
 		var images = document.getElementsByTagName('img');
 		for( var i=0; i<images.length; i++ ) {
 			var img = images[i];
@@ -158,7 +202,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				img.onclick = null;
 				img.className = img.className.replace(/\s*Asaph_PostImage/, '');
 			}
-		}
+		}*/
 	}
 	
 	

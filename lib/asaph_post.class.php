@@ -4,6 +4,7 @@
 of new post. It is solely used from the bookmarklet */
 
 require_once( ASAPH_PATH.'lib/asaph_admin.class.php' );
+date_default_timezone_set("Europe/Berlin");
 
 class Asaph_Post extends Asaph_Admin {
 	
@@ -30,7 +31,7 @@ class Asaph_Post extends Asaph_Admin {
 	}
 	
 	
-	public function postImage( $url, $referer, $title ) {
+	public function postImage( $url, $source, $title, $description ) {
 		if( !$this->userId ) {
 			return 'not-logged-in';
 		}
@@ -85,21 +86,81 @@ class Asaph_Post extends Asaph_Admin {
 		) {
 			return 'thumbnail-failed';
 		}
-		
+		list( $srcWidth, $srcHeight, $type ) = getimagesize( $imagePath );
+
+		$this->db->insertRow( ASAPH_TABLE_IMAGES, array(
+			'thumb' => $thumbName,
+			'image' => $imageName,
+			'width' => $srcWidth,
+			'height' =>  $srcHeight
+		));
+
 		$this->db->insertRow( ASAPH_TABLE_POSTS, array(
 			'userId' => $this->userId,
 			'hash' => $imageHash,
+			'created' => date('Y-m-d H:i:s'),
+			'source' => $source,
+			'title' => $title,
+			'description' => $description,
+			'image' => $this->db->insertId()
+		));
+		
+		return true;
+	}
+	public function postVideo( $url, $source, $type, $width, $height, $title, $description ) {
+		if( !$this->userId ) {
+			return 'not-logged-in';
+		}
+		
+		// Determine the target path based on the current date (e.g. data/2008/04/)
+		$time = time();
+		$this->db->insertRow( ASAPH_TABLE_VIDEOS, array(
+			'src' => $url,
+			'width' => $width,
+			'height' =>  $height,
+			'type' => $type
+		));
+
+		$this->db->insertRow( ASAPH_TABLE_POSTS, array(
+			'userId' => $this->userId,
+			'hash' => md5($url),
 			'created' => date( 'Y-m-d H:i:s', $time ),
-			'source' => $referer,
-			'thumb' => $thumbName,
-			'image' => $imageName,
-			'title' => $title
+			'source' => $source,
+			'title' => $title,
+			'description' => $description,
+			'video' => $this->db->insertId()
 		));
 		
 		return true;
 	}
 	
-	
+	public function postImageOnline( $url, $src, $type, $width, $height, $title, $description ) {
+		if( !$this->userId ) {
+			return 'not-logged-in';
+		}
+		
+		// Determine the target path based on the current date (e.g. data/2008/04/)
+		$time = time();
+		$this->db->insertRow( ASAPH_TABLE_IMAGES, array(
+			'thumb' => $url,
+			'image' => $url,
+			'width' => $width,
+			'height' =>  $height,
+		));
+
+		$this->db->insertRow( ASAPH_TABLE_POSTS, array(
+			'userId' => $this->userId,
+			'hash' => md5($url),
+			'created' => date( 'Y-m-d H:i:s', $time ),
+			'source' => $src,
+			'title' => $title,
+			'description' => $description,
+			'video' => $this->db->insertId()
+		));
+		
+		return true;
+	}
+
 	private function download( $url, $referer, $target  ) {
 		// Open the target file for writing
 		$fpLocal = @fopen( $target, 'w' );

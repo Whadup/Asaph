@@ -12,7 +12,7 @@ $asaphPosts = $asaph->getPosts( $pageToFetch ); */
 
 require_once( ASAPH_PATH.'lib/asaph_config.class.php' );
 require_once( ASAPH_PATH.'lib/db.class.php' );
-
+date_default_timezone_set("Europe/Berlin");
 class Asaph {
 	protected $db = null;
 	protected $postsPerPage = 0;
@@ -35,7 +35,7 @@ class Asaph {
 		$posts = $this->db->query( 
 			'SELECT SQL_CALC_FOUND_ROWS
 				UNIX_TIMESTAMP(p.created) as created, 
-				p.id, p.source, p.thumb, p.image, p.title, u.name AS user
+				p.id, p.source, p.description, p.image,p.video,p.quote,p.link, p.title, u.name AS user
 			FROM 
 				'.ASAPH_TABLE_POSTS.' p
 			LEFT JOIN '.ASAPH_TABLE_USERS.' u 
@@ -78,26 +78,61 @@ class Asaph {
 		return $pages;
 	}
 	
+	protected function queryImage($image,$datePath)
+	{
+		$query = 'SELECT SQL_CALC_FOUND_ROWS
+				image, thumb, width, height
+			FROM 
+				'.ASAPH_TABLE_IMAGES.'
+			WHERE 
+				id = '.$image.';';
+		$img = $this->db->query($query);
+		$img = $img[0];
+		$this->totalPosts = $this->db->foundRows();
+		$img['thumb'] = 
+				Asaph_Config::$absolutePath
+				.Asaph_Config::$images['thumbPath']
+				.$datePath
+				.$img['thumb'];
+				
+		$img['image'] = 
+				Asaph_Config::$absolutePath
+				.Asaph_Config::$images['imagePath']
+				.$datePath
+				.$img['image'];
+		return $img;
+	}
 	
+	protected function queryVideo($video)
+	{
+		$query = 'SELECT SQL_CALC_FOUND_ROWS
+				src, width, height, type
+			FROM 
+				'.ASAPH_TABLE_VIDEOS.'
+			WHERE 
+				id = '.$video.';';
+		$img = $this->db->query($query);
+		$img = $img[0];
+		$this->totalPosts = $this->db->foundRows();
+		print_r($img);
+		return $img;
+	}
+
 	protected function processPost( &$post ) {
 		$urlParts = parse_url( $post['source'] );
 		$datePath = date( 'Y/m/', $post['created'] );
 		$post['sourceDomain'] = $urlParts['host'];
 		$post['source'] = htmlspecialchars( $post['source'] );
 		$post['title'] = htmlspecialchars( $post['title'] );
-		
-		if( $post['thumb'] && $post['image'] ) {
-			$post['thumb'] = 
-				Asaph_Config::$absolutePath
-				.Asaph_Config::$images['thumbPath']
-				.$datePath
-				.$post['thumb'];
-				
-			$post['image'] = 
-				Asaph_Config::$absolutePath
-				.Asaph_Config::$images['imagePath']
-				.$datePath
-				.$post['image'];
+		$post['description'] = htmlspecialchars( $post['description'] );
+		if( $post['image'])
+		{
+			$post['image'] = $this->queryImage($post['image'],$datePath);
+		}
+		if( $post['video'])
+		{
+			echo "DO SOMETHING";
+			$post['video'] = $this->queryVideo($post['video']);
 		}
 	}
 }
