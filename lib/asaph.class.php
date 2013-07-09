@@ -114,7 +114,6 @@ class Asaph {
 		$img = $this->db->query($query);
 		$img = $img[0];
 		$this->totalPosts = $this->db->foundRows();
-		print_r($img);
 		return $img;
 	}
 
@@ -134,6 +133,7 @@ class Asaph {
 			echo "DO SOMETHING";
 			$post['video'] = $this->queryVideo($post['video']);
 		}
+		// TODO: Link & Quote
 	}
 }
 

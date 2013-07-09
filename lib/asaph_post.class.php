@@ -161,6 +161,8 @@ class Asaph_Post extends Asaph_Admin {
 		return true;
 	}
 
+	// TODO: Link & Quote
+
 	private function download( $url, $referer, $target  ) {
 		// Open the target file for writing
 		$fpLocal = @fopen( $target, 'w' );

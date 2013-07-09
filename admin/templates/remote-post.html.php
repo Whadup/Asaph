@@ -57,6 +57,7 @@
 				<input type="hidden" name="height" value="<?php printReqVar('height'); ?>"/>
 				<input type="hidden" name="width" value="<?php printReqVar('width'); ?>"/>
 				<input type="hidden" name="video_type" value="<?php printReqVar('video_type'); ?>"/>
+				<!-- TODO: Link & Quote-->
 			<?php } else { ?>
 				<dt>Text:</dt>
 				<dd><textarea id="title" name="title"><?php printReqVar('title'); ?></textarea></dd>

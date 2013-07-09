@@ -80,40 +80,58 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		if(type=="instapp:photo")
 		{
 			this.loadIFrame( {
-			'title': title,
-			'image' : image,
-			'description' : description,
-			'source' : url,
-			'xhrLocation': document.location.href.replace(/#.*$/,''),
-			'width' :width,
-			'height':height
-		});
+				'title': title,
+				'image' : image,
+				'description' : description,
+				'source' : url,
+				'xhrLocation': document.location.href.replace(/#.*$/,''),
+				'width' :width,
+				'height':height
+			});
 		}
-		if(type=="image")
+		else if(type=="image")
 		{
 			this.loadIFrame( {
-			'title': title,
-			'image' : image,
-			'description' : description,
-			'source' : url,
-			'xhrLocation': document.location.href.replace(/#.*$/,'')
-		});
+				'title': title,
+				'image' : image,
+				'description' : description,
+				'source' : url,
+				'xhrLocation': document.location.href.replace(/#.*$/,'')
+			});
 		}
-		if(type=="video")
+		else if(type=="video")
 		{
 			alert("video");
 			this.loadIFrame( {
-			'title': title,
-			'video' : video,
-			'description' : description,
-			'source' : url,
-			'xhrLocation': document.location.href.replace(/#.*$/,''),
-			'width' :video_width,
-			'height':video_height,
-			'video_type' : video_type
+				'title': title,
+				'video' : video,
+				'description' : description,
+				'source' : url,
+				'xhrLocation': document.location.href.replace(/#.*$/,''),
+				'width' :video_width,
+				'height':video_height,
+				'video_type' : video_type
 
-		});
+			});
 		}
+		else if(image!="")
+		{
+			//fall back on posting image
+			this.loadIFrame( {
+				'title': title,
+				'image' : image,
+				'description' : description,
+				'source' : url,
+				'xhrLocation': document.location.href.replace(/#.*$/,'')
+			});
+		}
+		else
+		{
+			//post a link
+			//TODO
+			alert("not yet supported");
+		}
+		// TODO: Link & Quote
 
 	}
 	
