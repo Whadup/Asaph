@@ -51,7 +51,12 @@ $createTablesSQL = array(
   `height` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;',
-
+	'CREATE TABLE `asaph_quotes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `quote` text CHARACTER SET latin1,
+  `speaker` varchar(128) CHARACTER SET latin1 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;',
 );
 
 $requirements = array(

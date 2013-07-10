@@ -49,6 +49,7 @@ define( 'ASAPH_TABLE_POSTS',	Asaph_Config::$db['prefix'].'posts' );
 define( 'ASAPH_TABLE_USERS',	Asaph_Config::$db['prefix'].'users' );
 define( 'ASAPH_TABLE_IMAGES',	Asaph_Config::$db['prefix'].'images' );
 define( 'ASAPH_TABLE_VIDEOS',	Asaph_Config::$db['prefix'].'videos' );
+define( 'ASAPH_TABLE_QUOTES',	Asaph_Config::$db['prefix'].'quotes' );
 
 define( 'ASAPH_BASE_URL',		'http://'.Asaph_Config::$domain.Asaph_Config::$absolutePath );
 define( 'ASAPH_POST_PHP',		ASAPH_BASE_URL.'admin/post.php' );

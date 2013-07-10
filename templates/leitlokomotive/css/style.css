@@ -116,6 +116,23 @@ p
   margin-top:0px;
   margin-bottom:2pt;
 }
+quote {
+  font-family:'Georgia', serif;
+  font-style: italic;
+  font-size: 22pt;
+  display: block;
+  text-align: center;
+  line-height: 140%;
+  margin-bottom: 20px;
+  margin-top:40px;
+  width:100%;
+  column-span:all;
+  -webkit-column-span:all; /* Safari and Chrome */
+}
+quote[length='long']
+{
+  font-size:16pt;
+}
 div.headline
 {
   column-span:all;

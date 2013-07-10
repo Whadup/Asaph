@@ -161,7 +161,32 @@ class Asaph_Post extends Asaph_Admin {
 		return true;
 	}
 
-	// TODO: Link & Quote
+	public function postQuote( $quote, $src,$speaker, $title, $description ) {
+		if( !$this->userId ) {
+			return 'not-logged-in';
+		}
+		
+		// Determine the target path based on the current date (e.g. data/2008/04/)
+		$time = time();
+		$this->db->insertRow( ASAPH_TABLE_QUOTES, array(
+			'quote' => $quote,
+			'speaker' => $speaker,
+		));
+
+		$this->db->insertRow( ASAPH_TABLE_POSTS, array(
+			'userId' => $this->userId,
+			'hash' => md5($url),
+			'created' => date( 'Y-m-d H:i:s', $time ),
+			'source' => $src,
+			'title' => $title,
+			'description' => $description,
+			'quote' => $this->db->insertId()
+		));
+		
+		return true;
+	}
+
+	// TODO: Link
 
 	private function download( $url, $referer, $target  ) {
 		// Open the target file for writing

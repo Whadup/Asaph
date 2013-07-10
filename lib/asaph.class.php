@@ -115,6 +115,19 @@ class Asaph {
 		return $img;
 	}
 
+	protected function queryQuote($quote)
+	{
+		$query = 'SELECT SQL_CALC_FOUND_ROWS
+				quote,speaker
+			FROM 
+				'.ASAPH_TABLE_QUOTES.'
+			WHERE 
+				id = '.$quote.';';
+		$img = $this->db->query($query);
+		$img = $img[0];
+		return $img;
+	}
+
 	protected function processPost( &$post ) {
 		$urlParts = parse_url( $post['source'] );
 		$datePath = date( 'Y/m/', $post['created'] );
@@ -128,8 +141,12 @@ class Asaph {
 		}
 		if( $post['video'])
 		{
-			echo "DO SOMETHING";
 			$post['video'] = $this->queryVideo($post['video']);
+		}
+		if( $post['quote'])
+		{
+
+			$post['quote'] = $this->queryQuote($post['quote']);
 		}
 		// TODO: Link & Quote
 	}
