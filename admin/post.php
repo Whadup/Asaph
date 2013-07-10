@@ -21,6 +21,7 @@ else if( !empty($_POST['post'])){ //} && (!empty($_POST['image']) || !empty($_PO
 	if( !empty($_POST['video']) ) {
 		$status = $asaphPost->postVideo( $_POST['video'], $_POST['source'], $_POST['video_type'], $_POST['width'], $_POST['height'], $_POST['title'], $_POST['description'] );
 	}
+	//TODO: QUOTE AND LINK
 	if( !empty($_POST['url']) ) {
 		$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'] );
 	}

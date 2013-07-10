@@ -1,6 +1,6 @@
 Asaph version 1.0 
 
-Author: Dominic Szablewski
+Author: Dominic Szablewski and Lukas Pfahler
 Web: http://www.phoboslab.org/projects/asaph
 
 
@@ -35,11 +35,10 @@ bookmarklet on the left. Just drag this link to your bookmarks bar and
 you're set. 
 
 Now, navigate your browser to any page you want and click your newly 
-created bookmark. A small box should pop up and all images on the page
-should now have a dashed blue border (if not, see the FAQ). You can now 
-either click on any of these images or on "Post this Site" to post the
-image or link.
-
+created bookmark. A small box should pop up and let you specify the title
+and type in a small description. 
+If possible, the image or video are automagically found, so you don't have
+to change anything.
 
 
 FAQ

@@ -37,7 +37,7 @@
 				<dd>
 					<input type="text" name="image" class="long" value="<?php printReqVar('image'); ?>"/>
 				</dd>
-				<dt>Site:</dt>
+				<dt>Source:</dt>
 				<dd>
 					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
 				</dd>
@@ -46,17 +46,32 @@
 				<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
 				<dt>Description:</dt>
 				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
-				<dt>Image:</dt>
+				<dt>Video:</dt>
 				<dd>
 					<input type="text" name="video" class="long" value="<?php printReqVar('video'); ?>"/>
 				</dd>
-				<dt>Site:</dt>
+				<dt>Source:</dt>
 				<dd>
 					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
 				</dd>
 				<input type="hidden" name="height" value="<?php printReqVar('height'); ?>"/>
 				<input type="hidden" name="width" value="<?php printReqVar('width'); ?>"/>
 				<input type="hidden" name="video_type" value="<?php printReqVar('video_type'); ?>"/>
+			<?php } elseif( !empty($_POST['quote']) || !empty($_GET['quote']) ) { ?>
+				<dt>Title:</dt>
+				<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
+				<dt>Description:</dt>
+				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
+				<dt>Quote:</dt>
+				<dd>
+					<dd><textarea id="quote" type="text" name="quote" class="long"><?php printReqVar('quote'); ?></textarea></dd>
+				</dd>
+				<dt>Speaker:</dt>
+				<dd><input id="speaker" type="text" name="speaker" class="long" value="<?php printReqVar('speaker'); ?>"/></dd>
+				<dt>Source:</dt>
+				<dd>
+					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
+				</dd>
 				<!-- TODO: Link & Quote-->
 			<?php } else { ?>
 				<dt>Text:</dt>

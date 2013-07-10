@@ -13,13 +13,13 @@ class Asaph_Config {
 	// with your ftp-client, it's likely you'll have to set chmod to 0777
 	public static $defaultChmod = 0777;
 	
-	public static $postsPerPage = 9;
+	public static $postsPerPage = 1;
 	public static $adminPostsPerPage = 9;
 	
 	// Templates
 	public static $templates = array(
-		'posts' => 'templates/logomotive/posts.html.php',
-		'about' => 'templates/logomotive/about.html.php',
+		'posts' => 'templates/leitlokomotive/posts.html.php',
+		'about' => 'templates/leitlokomotive/about.html.php',
 		'feed' => 'templates/rss.xml.php'
 	);
 	

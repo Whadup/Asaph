@@ -1,59 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<title><?php echo htmlspecialchars( Asaph_Config::$title ); ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/whiteout.css" />
-	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php echo ASAPH_LINK_PREFIX; ?>feed" />
-	<link rel="Shortcut Icon" href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/asaph.ico" />
-	<script type="text/javascript" src="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/whitebox.js"></script>
-</head>
-<body>
-
-<div id="title">
-	<em><a href="<?php echo ASAPH_LINK_PREFIX; ?>about">about</a></em>
-	<h1><a href="<?php echo Asaph_Config::$absolutePath; ?>"><?php echo htmlspecialchars( Asaph_Config::$title ); ?></a></h1>
-</div>
-
-<?php foreach( $posts as $p ) { ?>
-	<div class="post">
-		<?php if( $p['image'] ) { ?>
-			<a href="<?php echo $p['image']['image']; ?>" rel="whitebox" title="<?php echo $p['title']; ?>">
-				<img src="<?php echo $p['image']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
-			</a>
-		<?php } elseif( $p['video'] ) { ?>
-			<embed src="<?php echo $p['video']['src']; ?>" type="<?php echo $p['video']['type'];?>" width="300" height="400" />
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php echo ASAPH_LINK_PREFIX; ?>feed" />
+    <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
+    <link href='<?php echo Asaph_Config::$absolutePath; ?>templates/leitlokomotive/css/style.css' rel='stylesheet' type='text/css'>
+    <title>leitlokomotive.de</title>
+  </head>
+  <body>
+    <div id="header" class="header">
+      leitlokomotive
+      <div style="font-size:14pt;line-height:15pt;">
+      	<?php if( $pages['prev'] ) { ?>
+      		<a href="<?php echo ASAPH_LINK_PREFIX.'page/'.$pages['prev']?>" class="pageleft">«</a>
 		<?php } else { ?>
-			<p>
-				<a href="<?php echo $p['source']; ?>"><?php echo nl2br($p['title']); ?></a>
-			</p>
+			<a href="" style="visibility:false" class="pageleft">«</a>
 		<?php } ?>
-		<div class="postInfo">
-			via: <a href="<?php echo $p['source']; ?>"><?php echo $p['sourceDomain']; ?></a>
-		</div>
-	</div>
-<?php } ?>
-<div class="clear"></div>
-
-<div id="pages">
-	<div class="pageInfo">
-		page <?php echo $pages['current']; ?> of <?php echo $pages['total']; ?>
-	</div>
-	
-	<div class="pageLinks">
-		<?php if( $pages['prev'] ) { ?>
-			<a href="<?php echo ASAPH_LINK_PREFIX.'page/'.$pages['prev']?>">&laquo; prev</a>
+        <?php 
+        	for($i=1;$i<=$pages['total'];$i++)
+        	{
+        		if($i==$pages['current'])
+        		{
+        			echo "<a style=\"color:white;\" href=\"".ASAPH_LINK_PREFIX.'page/'.$i."\">".$i."</a> ";
+        		}
+        		else
+        		{
+        			echo "<a href=\"".ASAPH_LINK_PREFIX.'page/'.$i."\">".$i."</a> ";
+        		}
+        	} 
+        ?>
+        <?php if( $pages['next'] ) { ?>
+			<a href="<?php echo ASAPH_LINK_PREFIX.'page/'.$pages['next']?>" class="pageright">»</a>
 		<?php } else { ?>
-			&laquo; prev
+			<a href="" style="visibility:false" class="pageright">»</a>
 		<?php } ?>
-		/
-		<?php if( $pages['next'] ) { ?>
-			<a href="<?php echo ASAPH_LINK_PREFIX.'page/'.$pages['next']?>">next &raquo;</a>
-		<?php } else { ?>
-			next &raquo;
-		<?php } ?>
-	</div>
-	<div class="clear"></div>
-</div>
+        
+      </div>
+    </div>
 
+    <div id="main" class="main">
+    	<?php foreach( $posts as $p ) { ?>
+			<div class="post" style="margin-bottom:50px;">
+				<?php if( $p['image'] ) { ?>
+					 <img class="content" src="<?php echo $p['image']['image']; ?>" />
+				<?php } elseif( $p['video'] ) { ?>
+					<embed src="<?php echo $p['video']['src']; ?>" type="<?php echo $p['video']['type'];?>" width="612" height="<?php echo ($p['video']['height']*612/$p['video']['width']);?>" />
+				<?php } else { ?>
+					<p>
+						<a href="<?php echo $p['source']; ?>"><?php echo nl2br($p['title']); ?></a>
+					</p>
+				<?php } ?>
+				<div class="headline">
+			    	<h1><?php echo $p['title']; ?></h1>
+					<h2><?php echo date("d/m/y",$p['created']); ?></h2>
+				</div>
+				<p style="<?php if(strlen($p['description'])<200) echo "column-span: all;-webkit-column-span: all;" ?>"><?php echo $p['description']; ?></p>
+			</div>
+		<?php } ?>
+    <script src="<?php echo Asaph_Config::$absolutePath; ?>templates/leitlokomotive/js/index.js" type="text/javascript"></script>
+
+  </body>
+</html>
 </body>
 </html>

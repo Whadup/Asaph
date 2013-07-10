@@ -99,6 +99,17 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'xhrLocation': document.location.href.replace(/#.*$/,'')
 			});
 		}
+		else if(type=="tumblr-feed:quote")
+		{
+			this.loadIFrame( {
+				'title': "Quote",
+				'quote' : title,
+				'speaker' : description,
+				'description' : "...",
+				'source' : url,
+				'xhrLocation': document.location.href.replace(/#.*$/,''),
+			});
+		}
 		else if(type=="video")
 		{
 			alert("video");
@@ -125,9 +136,10 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'xhrLocation': document.location.href.replace(/#.*$/,'')
 			});
 		}
+
 		else
 		{
-			//post a link
+			//post a plain entry
 			//TODO
 			alert("not yet supported");
 		}

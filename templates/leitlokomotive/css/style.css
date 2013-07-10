@@ -1,0 +1,127 @@
+body
+{
+  width:100%;
+  font-family:sans-serif;
+  font-size:10pt;
+  padding:0px;
+  margin:0px;
+}
+div.header
+{
+  position:fixed;
+  top:0px;
+  
+  width:100%;
+  height:350px;
+  background-size:cover;
+  background-image:url('header2.jpeg'); /*http://openwalls.com/image/5178/spots_of_light_1600x1200.jpg);*/
+   background-position:50%;  /*url(http://openwalls.com/image/5176/orange_spots_1600x1200.jpg);*/
+  padding:0px;
+  margin:0px;
+  text-align:center;
+  font-size:120pt;
+  line-height:320px;
+  vertical-align:middle;
+  color:rgba(255,255,255,0.8);
+  font-family: 'Grand Hotel', cursive;
+}
+img.content
+{
+  display:block;
+  width:612px;
+  margin:0px auto;
+  column-span:all;
+-webkit-column-span:all; /* Safari and Chrome */
+  margin-bottom:20px;
+}
+embed
+{
+  display:block;
+  width:612px;
+  margin:0px auto;
+  column-span:all;
+-webkit-column-span:all; /* Safari and Chrome */
+  margin-bottom:20px;
+}
+div.main
+{
+  
+  width:612px;
+  margin:50px auto;  
+  margin-top:400px;
+  column-width:390;
+  -moz-column-width:290px; /* Firefox */
+  -webkit-column-width:290px;
+  column-gap:12px;
+}
+div.header a
+{
+  text-decoration:none;
+  color:rgba(240,240,222,0.7);
+}
+div.header a:hover
+{
+  color:white;
+}
+a.pageleft
+{
+  margin-left:2px;
+  margin-right:0px;
+  width:100px;
+  display:inline-block;
+  text-align:right;
+}
+a.pageleft:hover
+{
+  margin-left:0px;
+  margin-right:2px;
+}
+a.pageright
+{
+  margin-left:0px;
+  margin-right:2px;
+  width:100px;
+  display:inline-block;
+  text-align:left;
+}
+a.pageright:hover
+{
+  margin-left:2px;
+  margin-right:0px;
+}
+h1
+{
+  text-align:right;
+  margin-bottom:0px;
+  margin-top:8px;
+  text-transform:lowercase;
+  font-family:'Helvetica',sans-serif;
+}
+h2
+{
+  text-align:right;
+  font-size:12pt;
+  font-weight:0.5;
+  color:gray;
+  margin-top:0px;
+  font-family:'Helvetica',sans-serif;
+}
+p
+{
+  text-align:justify;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  line-height:125%;
+  margin-top:0px;
+  margin-bottom:2pt;
+}
+div.headline
+{
+  column-span:all;
+  -webkit-column-span:all; /* Safari and Chrome */
+  width:50%;
+  margin-left:50%;
+  margin-bottom:10px;
+}
+

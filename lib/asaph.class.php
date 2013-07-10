@@ -88,7 +88,6 @@ class Asaph {
 				id = '.$image.';';
 		$img = $this->db->query($query);
 		$img = $img[0];
-		$this->totalPosts = $this->db->foundRows();
 		$img['thumb'] = 
 				Asaph_Config::$absolutePath
 				.Asaph_Config::$images['thumbPath']
@@ -113,7 +112,6 @@ class Asaph {
 				id = '.$video.';';
 		$img = $this->db->query($query);
 		$img = $img[0];
-		$this->totalPosts = $this->db->foundRows();
 		return $img;
 	}
 
