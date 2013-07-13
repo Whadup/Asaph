@@ -107,7 +107,7 @@ class Asaph_Post extends Asaph_Admin {
 		
 		return true;
 	}
-	public function postVideo( $url, $source, $type, $width, $height, $title, $description ) {
+	public function postVideo( $url, $source, $type, $width, $height, $thumb, $title, $description ) {
 		if( !$this->userId ) {
 			return 'not-logged-in';
 		}
@@ -118,6 +118,7 @@ class Asaph_Post extends Asaph_Admin {
 			'src' => $url,
 			'width' => $width,
 			'height' =>  $height,
+			'thumb' => $thumb,
 			'type' => $type
 		));
 
@@ -175,7 +176,7 @@ class Asaph_Post extends Asaph_Admin {
 
 		$this->db->insertRow( ASAPH_TABLE_POSTS, array(
 			'userId' => $this->userId,
-			'hash' => md5($url),
+			'hash' => md5($quote.$speaker),
 			'created' => date( 'Y-m-d H:i:s', $time ),
 			'source' => $src,
 			'title' => $title,

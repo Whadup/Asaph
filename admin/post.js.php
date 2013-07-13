@@ -118,6 +118,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'video' : video,
 				'description' : description,
 				'source' : url,
+				'thumb' : image,
 				'xhrLocation': document.location.href.replace(/#.*$/,''),
 				'width' :video_width,
 				'height':video_height,

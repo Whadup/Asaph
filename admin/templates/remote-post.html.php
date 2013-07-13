@@ -50,6 +50,9 @@
 				<dd>
 					<input type="text" name="video" class="long" value="<?php printReqVar('video'); ?>"/>
 				</dd>
+				<dd>
+					<input type="text" name="thumb" class="long" value="<?php printReqVar('thumb'); ?>"/>
+				</dd>
 				<dt>Source:</dt>
 				<dd>
 					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
@@ -72,7 +75,7 @@
 				<dd>
 					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
 				</dd>
-				<!-- TODO: Link & Quote-->
+				<!-- TODO: Link-->
 			<?php } else { ?>
 				<dt>Text:</dt>
 				<dd><textarea id="title" name="title"><?php printReqVar('title'); ?></textarea></dd>

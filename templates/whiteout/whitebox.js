@@ -29,13 +29,13 @@ function Whitebox( waitFor ) {
 				a.onclick = function() { return that.show(this); }
 			}
 		}
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27) { that.hide(); }   // esc
+		});
 	}
 	
 	this.showCallback = function() {
-		if( this.image && (this.image.width > 0 || this.image.complete) ) {
-			if( this.image.width > 0 ) {
-				clearInterval( this.showInterval );
-				
+		this.div.style.display = 'block';
 				var yScroll;
 				if (self.pageYOffset) {
 					yScroll = self.pageYOffset;
@@ -47,10 +47,8 @@ function Whitebox( waitFor ) {
 				
 				this.div.style.top = Math.max( yScroll + (document.documentElement.clientHeight - this.image.height )/2, 0) + "px";
 				this.div.style.left = Math.max((document.documentElement.clientWidth - this.image.width )/2, 0 ) + "px";
-			}
 			
-			this.div.style.display = 'block';
-		}
+			
 	}
 	
 	this.show = function( anchor ) {
@@ -58,20 +56,34 @@ function Whitebox( waitFor ) {
 			this.hide();
 			return false;
 		}
-		this.image = new Image();
+		/*this.image = new Image();
 		this.image.src = anchor.href;
 		this.image.title = anchor.title;
 		this.image.onclick = function() { return that.hide(); }
-		this.div.appendChild( this.image );
+		this.div.appendChild( this.image );*/
+
+		$("#whitebox").load(anchor.href,function()
+			{
+				$("#whitebox").css('display','block');
+				height = $("#whitebox").height();
+				width = $("#whitebox").width();
+				$("#whitebox").css('position','fixed');
+				$("#whitebox").css('top',(document.documentElement.clientHeight - height )/2 + "px");
+				$("#whitebox").css('left',Math.max((document.documentElement.clientWidth - width )/2, 0 ) + "px");
+			
+			});
 		
-		this.showInterval = setInterval( function() { that.showCallback() }, 100 );
+		//this.showInterval = setInterval( function() { that.showCallback() }, 100 );
 		this.visible = true;
 		return false;
 	}
 	
 	this.hide = function() {
 		this.div.style.display = 'none';
-		this.div.removeChild( this.image );
+		while (this.div.firstChild)
+		{
+    		this.div.removeChild(this.div.firstChild);
+		}
 		this.image = null;
 		this.visible = false;
 	}

@@ -3,7 +3,7 @@
 class Asaph_Config {
 	
 	// This title is used in templates and the rss feed
-	public static $title = 'Leitlokomotive';
+	public static $title = 'Asaph Blog';
 	
 	// Domain name and path where Asaph is installed in
 	public static $domain = 'localhost';
@@ -13,13 +13,13 @@ class Asaph_Config {
 	// with your ftp-client, it's likely you'll have to set chmod to 0777
 	public static $defaultChmod = 0777;
 	
-	public static $postsPerPage = 1;
+	public static $postsPerPage = 9;
 	public static $adminPostsPerPage = 9;
 	
 	// Templates
 	public static $templates = array(
-		'posts' => 'templates/leitlokomotive/posts.html.php',
-		'about' => 'templates/leitlokomotive/about.html.php',
+		'posts' => 'templates/whiteout/posts.html.php',
+		'about' => 'templates/whiteout/about.html.php',
 		'feed' => 'templates/rss.xml.php'
 	);
 	

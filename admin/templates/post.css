@@ -12,7 +12,7 @@ img.Asaph_PostImage {
 	position: fixed;
 	top: 0;
 	left: 50%;
-	width: 450px;
+	width: 600px;
 	margin-left: -243px;
 	padding: 0 18px 18px 18px;
 	z-index: 99999;
@@ -35,8 +35,8 @@ img.Asaph_PostImage {
 }
 
 #Asaph iframe {
-	width: 450px;
-	height: 180px;
+	width: 600px;
+	height: 360px;
 	border: 0;
 }
 

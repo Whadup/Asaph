@@ -5,7 +5,9 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/whiteout.css" />
 	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php echo ASAPH_LINK_PREFIX; ?>feed" />
 	<link rel="Shortcut Icon" href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/asaph.ico" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/whitebox.js"></script>
+
 </head>
 <body>
 
@@ -13,12 +15,24 @@
 	<em><a href="<?php echo ASAPH_LINK_PREFIX; ?>about">about</a></em>
 	<h1><a href="<?php echo Asaph_Config::$absolutePath; ?>"><?php echo htmlspecialchars( Asaph_Config::$title ); ?></a></h1>
 </div>
-
 <?php foreach( $posts as $p ) { ?>
 	<div class="post">
 		<?php if( $p['image'] ) { ?>
-			<a href="<?php echo $p['image']; ?>" rel="whitebox" title="<?php echo $p['title']; ?>">
-				<img src="<?php echo $p['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
+			<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
+				<img src="<?php echo $p['image']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
+			</a>
+		<?php } else if( $p['video'] ) {?>
+			<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
+				<img style="max-width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;max-height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;" src="<?php echo $p['video']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
+			</a>
+		<?php } else if( $p['quote'] ) {?>
+			<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
+				<div style="font-family:'Georgia',serif;font-style:italic;text-align:center;color:black;font-size:12pt;overflow:hidden;overflow:synapsis;width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;">
+					
+						»<?php echo $p['quote']['quote'];?>«
+
+					<!--<p style="font-family:'Georgia',serif;color:black;text-align:right;font-size:12pt;font-weight:bold;"><?php echo $p['quote']['speaker'];?></p>-->
+				</div>
 			</a>
 		<?php } else { ?>
 			<p>

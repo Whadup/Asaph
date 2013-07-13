@@ -11,7 +11,7 @@ $(document).scroll(function(){
 //scroll header out of view on load
 $(document).ready(function (){
 	view = $(window).height();   // returns height of browser viewport
-	doc = $("#bottom").position().top+20;
+	doc = $("#bottom").position().top+15;
 	// alert(view + " " + doc);
 	if(doc+310>view)
 	{

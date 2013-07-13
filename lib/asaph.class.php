@@ -56,6 +56,27 @@ class Asaph {
 		return $posts;
 	}
 	
+	public function getPost( $id ) {
+		$posts = $this->db->query( 
+			'SELECT SQL_CALC_FOUND_ROWS
+				UNIX_TIMESTAMP(p.created) as created, 
+				p.id, p.source, p.description, p.image,p.video,p.quote,p.link, p.title, u.name AS user
+			FROM 
+				'.ASAPH_TABLE_POSTS.' p
+			LEFT JOIN '.ASAPH_TABLE_USERS.' u 
+				ON u.id = p.userId
+			WHERE 
+				p.id='.$id.';'
+		);
+		
+		$this->totalPosts = $this->db->foundRows();
+		
+		foreach( array_keys($posts) as $i ) {
+			$this->processPost( $posts[$i] );
+		}
+		
+		return $posts[0];
+	}
 	
 	public function getPages() {
 		$pages = array( 
@@ -105,7 +126,7 @@ class Asaph {
 	protected function queryVideo($video)
 	{
 		$query = 'SELECT SQL_CALC_FOUND_ROWS
-				src, width, height, type
+				src, width, height, type, thumb
 			FROM 
 				'.ASAPH_TABLE_VIDEOS.'
 			WHERE 
