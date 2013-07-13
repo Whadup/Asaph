@@ -22,12 +22,14 @@
 				<img src="<?php echo $p['image']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
 			</a>
 		<?php } else if( $p['video'] ) {?>
-			<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
-				<img style="max-width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;max-height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;" src="<?php echo $p['video']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
-			</a>
+			<div style="display:table-cell;vertical-align:middle;overflow:hidden;text-align:center;background-color:black;width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;">
+				<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
+					<img style="max-width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;max-height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;" src="<?php echo $p['video']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
+				</a>
+			</div>
 		<?php } else if( $p['quote'] ) {?>
 			<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
-				<div style="font-family:'Georgia',serif;font-style:italic;text-align:center;color:black;font-size:12pt;overflow:hidden;overflow:synapsis;width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;">
+				<div style="display:table-cell;vertical-align:middle;font-family:'Georgia',serif;font-style:italic;text-align:center;color:black;font-size:12pt;overflow:hidden;overflow:synapsis;width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;">
 					
 						»<?php echo $p['quote']['quote'];?>«
 
@@ -35,9 +37,9 @@
 				</div>
 			</a>
 		<?php } else { ?>
-			<p>
+			<div style="display:table-cell;vertical-align:middle;text-align:center;font-size:14pt;width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;">
 				<a href="<?php echo $p['source']; ?>"><?php echo nl2br($p['title']); ?></a>
-			</p>
+			</div>
 		<?php } ?>
 		<div class="postInfo">
 			via: <a href="<?php echo $p['source']; ?>"><?php echo $p['sourceDomain']; ?></a>

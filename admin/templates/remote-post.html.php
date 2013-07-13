@@ -3,16 +3,17 @@
 <head>
 	<title>Post: Asaph</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo ASAPH_POST_CSS; ?>" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 </head>
 <body class="Asaph_Post" onload="document.getElementById('title').focus();">
-	<h1>
+	<!--<h1>
 		Post
 		<?php if( !empty($_POST['image']) || !empty($_GET['image']) ) { ?>
 			Image:
 		<?php } else { ?>
 			Site:
 		<?php } ?>
-	</h1>
+	</h1>-->
 	
 	<?php if( !empty($status) ) { ?>
 		<div class="warn">
@@ -22,8 +23,23 @@
 			<?php if( $status == 'thumbnail-failed' ) { ?>Couldn't create a thumbnail of the image!<?php } ?>
 		</div>
 	<?php } ?>
-	
-	<form action="post.php" method="post">
+	<?php if( !empty($_POST['image']) || !empty($_GET['image']) ) { ?>
+		<img id="image" src="<?php printReqVar('image'); ?>" style="
+    	width: 150px;
+    	float: left;
+    	margin-right: 10px;
+    	margin-left:4px;">
+    <?php } else if( !empty($_POST['video']) || !empty($_GET['video']) ) { ?>
+		<embed 
+			src="<?php printReqVar('video'); ?>" 
+			type="<?php printReqVar('type'); ?>" 
+			width="150" 
+			height="100" 
+			style="float:left;margin-right:10px;margin-left;4px;"
+		/>
+    <?php } ?>
+
+	<form action="post.php" method="post"  style="display: block;float: left;width: 420px;">
 		<input type="hidden" name="xhrLocation" value="<?php printReqVar('xhrLocation'); ?>"/>
 		<?php if( !empty($loginError) ) { ?><span class="warn">The name or password was not correct!</span><?php } ?>
 		<dl>
@@ -35,7 +51,7 @@
 				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
 				<dt>Image:</dt>
 				<dd>
-					<input type="text" name="image" class="long" value="<?php printReqVar('image'); ?>"/>
+					<input type="text" name="image" id ="imageForm" class="long" value="<?php printReqVar('image'); ?>"/>
 				</dd>
 				<dt>Source:</dt>
 				<dd>
@@ -46,13 +62,10 @@
 				<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
 				<dt>Description:</dt>
 				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
-				<dt>Video:</dt>
-				<dd>
-					<input type="text" name="video" class="long" value="<?php printReqVar('video'); ?>"/>
-				</dd>
-				<dd>
-					<input type="text" name="thumb" class="long" value="<?php printReqVar('thumb'); ?>"/>
-				</dd>
+				
+				<input type="hidden" name="video" class="long" value="<?php printReqVar('video'); ?>"/>
+				<input type="hidden" name="thumb" class="long" value="<?php printReqVar('thumb'); ?>"/>
+				
 				<dt>Source:</dt>
 				<dd>
 					<input type="text" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
@@ -77,9 +90,10 @@
 				</dd>
 				<!-- TODO: Link-->
 			<?php } else { ?>
-				<dt>Text:</dt>
+				<dt>Titel:</dt>
 				<dd><textarea id="title" name="title"><?php printReqVar('title'); ?></textarea></dd>
-				
+				<dt>Description:</dt>
+				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
 				<dt>Site:</dt>
 				<dd>
 					<input type="text" name="url" class="long" value="<?php printReqVar('url'); ?>"/>
@@ -89,5 +103,14 @@
 			<dd><input type="submit" name="post" value="Post" class="button"/></dd>
 		</dl>
 	</form>
+	<?php if( !empty($_POST['image']) || !empty($_GET['image']) ) { ?>
+	<script>
+
+    		$("#imageForm").change(function(){
+    			alert("change");
+    			$("#image").attr("src", $("#imageForm").val());
+    		});
+    	</script>
+    <?php } ?>
 </body>
 </html>

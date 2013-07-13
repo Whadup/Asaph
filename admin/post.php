@@ -26,7 +26,7 @@ else if( !empty($_POST['post'])){ //} && (!empty($_POST['image']) || !empty($_PO
 	}
 	//TODO: QUOTE AND LINK
 	if( !empty($_POST['url']) ) {
-		$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'] );
+		$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'], $_POST['description'] );
 	}
 	
 	if( $status === true ) {

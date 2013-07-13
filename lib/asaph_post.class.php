@@ -13,7 +13,7 @@ class Asaph_Post extends Asaph_Admin {
 	}
 	
 	
-	public function postUrl( $url, $title ) {
+	public function postUrl( $url, $title, $desc ) {
 		if( !$this->userId ) {
 			return 'not-logged-in';
 		}
@@ -23,9 +23,8 @@ class Asaph_Post extends Asaph_Admin {
 			'hash' => md5( $url ),
 			'created' => date( 'Y-m-d H:i:s' ),
 			'source' => $url,
-			'thumb' => '',
-			'image' => '',
-			'title' => trim($title)
+			'title' => trim($title),
+			'description' => $desc
 		));
 		return true;
 	}

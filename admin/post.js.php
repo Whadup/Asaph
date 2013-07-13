@@ -13,6 +13,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 	this.checkSuccessInterval = 0;
 	this.minImageSize = 32;
 	
+
 	
 	this.create = function(){
 		var that = this;
@@ -26,21 +27,80 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 			document.getElementsByTagName("body").item(0).appendChild( css );
 		}
 		
+		metaData = document.getElementsByTagName("meta");
+		url = getData(metaData,"og:url");
+		title = getData(metaData,"og:title");
+		type = getData(metaData,"og:type");
+		image = getData(metaData,"og:image");
+		site_name = getData(metaData,"og:site_name");
+		description = getData(metaData,"og:description");
+		video = getData(metaData,"og:video");
+		width = getData(metaData,"og:width");
+		height = getData(metaData,"og:height");
+		video_type = getData(metaData,"og:video:type");
+		video_width = getData(metaData,"og:video:width");
+		video_height = getData(metaData,"og:video:height");
+
 		var closeButton = document.createElement('a');
 		closeButton.appendChild( document.createTextNode("x") );
 		closeButton.className = 'close';
 		closeButton.onclick = function() { return that.toggle(); }
 		closeButton.href = '#';
 		
-		var postButton = document.createElement('a');
-		postButton.appendChild( document.createTextNode("Post this Site") );
-		postButton.onclick = function() { return that.selectSite(); }
-		postButton.href = '#';
 		
+
+		var postSiteButton = document.createElement('a');
+		var postActiveButton = postSiteButton;
+		postSiteButton.appendChild( document.createTextNode("Post Site | ") );
+		postSiteButton.onclick = function() { 
+			that.selectSite(); 
+			postActiveButton.style.color="#666";
+			postActiveButton = postSiteButton;
+			postActiveButton.style.color="#00adef";
+		}
+		postSiteButton.href = '#';
+		
+		var postImageButton = document.createElement('a');
+		postImageButton.appendChild( document.createTextNode("Post Image | ") );
+		postImageButton.onclick = function() 
+		{ 
+			that.loadIFrame( {
+				'title': "Title",
+				'image' : "http://",
+				'description' : "...",
+				'source' : document.location.href,
+				'xhrLocation': document.location.href.replace(/#.*$/,'')
+			}); 
+			postActiveButton.style.color="#666";
+			postActiveButton = postImageButton;
+			postActiveButton.style.color="#00adef";
+		};
+		postImageButton.href = '#';
+
+		var postQuoteButton = document.createElement('a');
+		postQuoteButton.appendChild( document.createTextNode("Post Quote ") );
+		postQuoteButton.onclick = function() 
+		{ 
+			that.loadIFrame( {
+				'title': "Quote",
+				'quote' : "To be or not to be.",
+				'speaker' : "Shakespeare",
+				'description' : "...",
+				'source' : document.location.href,
+				'xhrLocation': document.location.href.replace(/#.*$/,''),
+			}); 
+			postActiveButton.style.color="#666";
+			postActiveButton = postQuoteButton;
+			postActiveButton.style.color="#00adef";
+		};
+		postQuoteButton.href = '#';
+
 		var menuBar = document.createElement('div');
 		menuBar.id = 'Asaph_Menu';
 		menuBar.appendChild( document.createTextNode("Asaph // ") );
-		menuBar.appendChild( postButton );
+		menuBar.appendChild( postSiteButton );
+		menuBar.appendChild( postImageButton );
+		menuBar.appendChild( postQuoteButton );
 		menuBar.appendChild( closeButton );
 		
 		this.menu = document.createElement('div');
@@ -64,19 +124,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		this.dialog.appendChild( this.iframe );
 		this.menu.appendChild( this.dialog );
 
-		metaData = document.getElementsByTagName("meta");
-		url = getData(metaData,"og:url");
-		title = getData(metaData,"og:title");
-		type = getData(metaData,"og:type");
-		image = getData(metaData,"og:image");
-		site_name = getData(metaData,"og:site_name");
-		description = getData(metaData,"og:description");
-		video = getData(metaData,"og:video");
-		width = getData(metaData,"og:width");
-		height = getData(metaData,"og:height");
-		video_type = getData(metaData,"og:video:type");
-		video_width = getData(metaData,"og:video:width");
-		video_height = getData(metaData,"og:video:height");
+		
 		if(type=="instapp:photo")
 		{
 			this.loadIFrame( {
@@ -88,6 +136,9 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'width' :width,
 				'height':height
 			});
+			postActiveButton.style.color="#666";
+			postActiveButton = postImageButton;
+			postActiveButton.style.color="#00adef";
 		}
 		else if(type=="image")
 		{
@@ -98,6 +149,9 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'source' : url,
 				'xhrLocation': document.location.href.replace(/#.*$/,'')
 			});
+			postActiveButton.style.color="#666";
+			postActiveButton = postImageButton;
+			postActiveButton.style.color="#00adef";
 		}
 		else if(type=="tumblr-feed:quote")
 		{
@@ -109,10 +163,13 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'source' : url,
 				'xhrLocation': document.location.href.replace(/#.*$/,''),
 			});
+			postActiveButton.style.color="#666";
+			postActiveButton = postQuoteButton;
+			postActiveButton.style.color="#00adef";
 		}
 		else if(type=="video")
 		{
-			alert("video");
+			
 			this.loadIFrame( {
 				'title': title,
 				'video' : video,
@@ -123,8 +180,8 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'width' :video_width,
 				'height':video_height,
 				'video_type' : video_type
-
 			});
+			postActiveButton.style.color="#666";
 		}
 		else if(image!="")
 		{
@@ -136,13 +193,16 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 				'source' : url,
 				'xhrLocation': document.location.href.replace(/#.*$/,'')
 			});
+			postActiveButton.style.color="#666";
+			postActiveButton = postImageButton;
+			postActiveButton.style.color="#00adef";
 		}
 
 		else
 		{
 			//post a plain entry
 			//TODO
-			alert("not yet supported");
+			//alert("not yet supported");
 		}
 		// TODO: Link & Quote
 
@@ -160,6 +220,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		return "";
 	}
 
+	
 	this.loadIFrame = function( params ) {
 		this.dialog.style.display = 'block';
 		var reqUrl = this.postURL + '?nocache=' + parseInt(Math.random()*10000);
@@ -168,7 +229,6 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		}
 		this.iframe.src = reqUrl;
 	}
-	
 	
 	this.selectSite = function() {
 		var title = document.title;
