@@ -68,7 +68,11 @@ else if( $asaphAdmin->checkLogin() ) {
 		header( 'Location: '.Asaph_Config::$absolutePath.'admin/' );
 	}
 	else if( isset($_POST['updatePost']) ) {
-		$asaphAdmin->updatePost( $_POST['id'], $_POST['created'], $_POST['source'], $_POST['title'] );
+		if(isset($_POST['quote']))
+		{
+			$asaphAdmin->updateQuote($_POST['quoteId'],$_POST['quote'],$_POST['speaker']);
+		}
+		$asaphAdmin->updatePost( $_POST['id'], $_POST['created'], $_POST['source'], $_POST['title'],$_POST['description'] );
 		header( 'Location: '.Asaph_Config::$absolutePath.'admin/' );
 	}
 	else {

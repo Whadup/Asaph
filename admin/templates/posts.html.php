@@ -10,8 +10,11 @@
 	<?php foreach( $posts as $i => $p ) { ?>
 		<tr class="<?php echo $i%2 ? 'odd' : 'even' ; ?>">
 			<td class="image">
-				<?php if( $p['thumb'] ) { ?>
-					<a href="?post=<?php echo $p['id'];?>"><img src="<?php echo $p['thumb']; ?>" alt=""/></a>
+				<?php if( $p['image'] ) { ?>
+					<a href="?post=<?php echo $p['id'];?>"><img src="<?php echo $p['image']['thumb']; ?>" alt=""/></a>
+				<?php } ?>
+				<?php if( $p['video'] ) { ?>
+					<a href="?post=<?php echo $p['id'];?>"><img src="<?php echo $p['video']['thumb']; ?>" alt=""/></a>
 				<?php } ?>
 			</td>
 			<td class="text">

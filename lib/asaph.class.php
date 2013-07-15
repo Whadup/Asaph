@@ -57,25 +57,25 @@ class Asaph {
 	}
 	
 	public function getPost( $id ) {
-		$posts = $this->db->query( 
-			'SELECT SQL_CALC_FOUND_ROWS
+		$post = $this->db->getRow( 
+			'SELECT 
 				UNIX_TIMESTAMP(p.created) as created, 
-				p.id, p.source, p.description, p.image,p.video,p.quote, p.title, u.name AS user
+				p.id, p.source, p.description, p.image, p.title,p.video,p.quote, u.name
 			FROM 
 				'.ASAPH_TABLE_POSTS.' p
 			LEFT JOIN '.ASAPH_TABLE_USERS.' u 
 				ON u.id = p.userId
 			WHERE 
-				p.id='.$id.';'
+				p.id = :1
+			ORDER BY 
+				created DESC',
+			$id
 		);
-		
-		$this->totalPosts = $this->db->foundRows();
-		
-		foreach( array_keys($posts) as $i ) {
-			$this->processPost( $posts[$i] );
+		if( empty($post) ) {
+			return array();
 		}
-		
-		return $posts[0];
+		$this->processPost( $post );
+		return $post;
 	}
 	
 	public function getPages() {
@@ -102,7 +102,7 @@ class Asaph {
 	protected function queryImage($image,$datePath)
 	{
 		$query = 'SELECT SQL_CALC_FOUND_ROWS
-				image, thumb, width, height
+				id, image, thumb, width, height
 			FROM 
 				'.ASAPH_TABLE_IMAGES.'
 			WHERE 
@@ -126,7 +126,7 @@ class Asaph {
 	protected function queryVideo($video)
 	{
 		$query = 'SELECT SQL_CALC_FOUND_ROWS
-				src, width, height, type, thumb
+				id, src, width, height, type, thumb
 			FROM 
 				'.ASAPH_TABLE_VIDEOS.'
 			WHERE 
@@ -139,7 +139,7 @@ class Asaph {
 	protected function queryQuote($quote)
 	{
 		$query = 'SELECT SQL_CALC_FOUND_ROWS
-				quote,speaker
+				id, quote,speaker
 			FROM 
 				'.ASAPH_TABLE_QUOTES.'
 			WHERE 

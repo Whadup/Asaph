@@ -25,6 +25,7 @@
 			<div style="display:table-cell;vertical-align:middle;overflow:hidden;text-align:center;background-color:black;width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;">
 				<a href="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/detailView.php?<?php echo $p['id'];?>" rel="whitebox" title="<?php echo $p['title']; ?>">
 					<img style="max-width:<?php echo Asaph_Config::$images['thumbWidth'];?>px;max-height:<?php echo Asaph_Config::$images['thumbHeight'];?>px;" src="<?php echo $p['video']['thumb']; ?>" alt="<?php echo $p['title']; ?>"/>
+					<img style="position:absolute;top:0px;left:0px;" src="<?php echo Asaph_Config::$absolutePath; ?>templates/whiteout/playbutton.svg" />
 				</a>
 			</div>
 		<?php } else if( $p['quote'] ) {?>

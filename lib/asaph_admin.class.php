@@ -73,35 +73,23 @@ class Asaph_Admin extends Asaph {
 		
 		return empty( $user ) ? null : $user['id'];
 	}
-	
-	
-	public function getPost( $id ) {
-		$post = $this->db->getRow( 
-			'SELECT 
-				UNIX_TIMESTAMP(p.created) as created, 
-				p.id, p.source, p.thumb, p.image, p.title, u.name
-			FROM 
-				'.ASAPH_TABLE_POSTS.' p
-			LEFT JOIN '.ASAPH_TABLE_USERS.' u 
-				ON u.id = p.userId
-			WHERE 
-				p.id = :1
-			ORDER BY 
-				created DESC',
-			$id
-		);
-		if( empty($post) ) {
-			return array();
-		}
-		$this->processPost( $post );
-		return $post;
+
+	public function updateQuote($id,$quote,$speaker)
+	{
+		$data = array('quote' => $quote, 'speaker' => $speaker);
+				
+		$this->db->updateRow( 
+					ASAPH_TABLE_QUOTES,
+					array( 'id' => $id ),
+					$data
+				);
 	}
-	
-	
-	public function updatePost( $id, $created, $source, $title ) {
+
+	public function updatePost( $id, $created, $source, $title, $description ) {
 		$data = array( 
 			'source' => $source,
-			'title' => $title
+			'title' => $title,
+			'description' => $description
 		);
 		
 		// Valid date given (YYYY-MM-DD)?
@@ -111,32 +99,38 @@ class Asaph_Admin extends Asaph {
 		) {
 			$data['created'] = $created;
 			
-			$initial = $this->db->getRow( 
-				'SELECT UNIX_TIMESTAMP(created) as created, image, thumb 
-				FROM '.ASAPH_TABLE_POSTS.'
-				WHERE id = :1',
-				$id
-			);
+			$initial = $this->getPost($id);
 			
 			// OK, this sucks hard. If the date changed, we may have to move the thumb and image
 			// into another path and make sure to not overwrite any other imagess.
 			$initialPath = date( 'Y/m', $initial['created'] );
 			$newPath = date( 'Y/m', strtotime($created) );
-			
-			if( $initialPath != $newPath && !empty($initial['thumb']) ) {
+			if( $initialPath != $newPath && !empty($initial['image']) ) {
 				$newImageDir = ASAPH_PATH.Asaph_Config::$images['imagePath'].$newPath;
 				$newThumbDir = ASAPH_PATH.Asaph_Config::$images['thumbPath'].$newPath;
-				$newImageName = $this->getUniqueFileName( $newImageDir, $initial['image'] );
-				$newThumbName = $this->getUniqueFileName( $newThumbDir, $initial['thumb'] );
+				$newImageName = $this->getUniqueFileName( $newImageDir, basename($initial['image']['image'] ));
+				$newThumbName = $this->getUniqueFileName( $newThumbDir, basename($initial['image']['thumb'] ));
 
-				$initialImagePath = ASAPH_PATH.Asaph_Config::$images['imagePath'].$initialPath.'/'.$initial['image'];
-				$initialThumbPath = ASAPH_PATH.Asaph_Config::$images['thumbPath'].$initialPath.'/'.$initial['thumb'];
+				$initialImagePath = ASAPH_PATH.Asaph_Config::$images['imagePath'].$initialPath.'/'.basename($initial['image']['image']);
+				$initialThumbPath = ASAPH_PATH.Asaph_Config::$images['thumbPath'].$initialPath.'/'.basename($initial['image']['thumb']);
 				$newImagePath = $newImageDir.'/'.$newImageName;
 				$newThumbPath = $newThumbDir.'/'.$newThumbName;
 				
-				$data['image'] = $newImageName;
-				$data['thumb'] = $newThumbName;
+				echo $newImageDir."<br/>";
+				echo $newImageName."<br/>";
+				echo $initialImagePath."<br/>";
+				echo $newImagePath."<br/>";
+
+				$imageData = array();
+				$imageData ['image'] = $newImageName;
+				$imageData ['thumb'] = $newThumbName;
 				
+				$this->db->updateRow( 
+							ASAPH_TABLE_IMAGES,
+							array( 'id' => $initial['image']['id'] ),
+							$imageData
+						);
+
 				if( 
 					!$this->mkdirr($newImageDir) ||
 					!$this->mkdirr($newThumbDir) ||
@@ -158,31 +152,20 @@ class Asaph_Admin extends Asaph {
 	
 	
 	public function deletePost( $id ) {
-		$post = $this->db->getRow(
-			'SELECT id, UNIX_TIMESTAMP(created) as created, thumb, image
-			FROM '.ASAPH_TABLE_POSTS.' 
-			WHERE id = :1',
-			$id
-		);
+		$post = $this->getPost($id);
 		
 		// Delete thumbnail an image from disk
-		if( !empty($post['thumb']) ) {
-			$thumb = 
-				ASAPH_PATH
-				.Asaph_Config::$images['thumbPath']
-				.date('Y/m/', $post['created'])
-				.$post['thumb'];
-			@unlink( $thumb );
-		}
 		if( !empty($post['image']) ) {
-			$image = 
-				ASAPH_PATH
-				.Asaph_Config::$images['imagePath']
-				.date('Y/m/', $post['created'])
-				.$post['image'];
-			@unlink( $image );
+			@unlink($post['image']['image']);
+			@unlink($post['image']['thumb']);
+			$this->db->query( 'DELETE FROM '.ASAPH_TABLE_IMAGES.' WHERE id = :1', $post['image']['id']);
 		}
-		
+		if( !empty($post['video']) ) {
+			$this->db->query( 'DELETE FROM '.ASAPH_TABLE_VIDEOS.' WHERE id = :1', $post['video']['id']);
+		}
+		if( !empty($post['quote']) ) {
+			$this->db->query( 'DELETE FROM '.ASAPH_TABLE_QUOTES.' WHERE id = :1', $post['quote']['id']);
+		}
 		$this->db->query( 'DELETE FROM '.ASAPH_TABLE_POSTS.' WHERE id = :1', $id );
 		return true;
 	}

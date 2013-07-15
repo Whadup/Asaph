@@ -33,8 +33,8 @@
 		<embed 
 			src="<?php printReqVar('video'); ?>" 
 			type="<?php printReqVar('type'); ?>" 
-			width="150" 
-			height="100" 
+			width="<?php echo Asaph_Config::$images['thumbWidth'];?>" 
+			height="<?php echo Asaph_Config::$images['thumbHeight'];?>" 
 			style="float:left;margin-right:10px;margin-left;4px;"
 		/>
     <?php } ?>
