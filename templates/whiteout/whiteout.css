@@ -28,7 +28,13 @@ h1 {
 	font-weight: normal;
 	text-transform: uppercase;
 }
-
+h1.description
+{
+	margin-top:10px;
+	color:black;
+	padding-left:0px;
+	margin-left:0px;
+}
 a {
 	color: #00adef;
 	text-decoration: none;
@@ -45,8 +51,16 @@ div.clear {
 p {
 	margin: 1em 10px;
 	padding: 0 1em;
-}
 
+}
+p.description
+{
+	color:black;
+	padding:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:5px;
+}
 
 
 div.post {
