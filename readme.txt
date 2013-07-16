@@ -1,4 +1,11 @@
-Asaph version 1.0 
+Highball - an Asaph fork (version 1.0) 
+
+This is not a Tumbler, this is a Highball: 
+A micro-blogging system, focusing on collecting links, quotes, images 
+and videos using OpenGraph. Most pages offer OpenGraph meta data, which
+makes it easy sharing media in social networks or blogs.  
+Highball is basically a small tumblr, but I know you love hosting your own blog 
+using open source technology, PHP and MySQL.
 
 Author: Dominic Szablewski and Lukas Pfahler
 Web: http://www.phoboslab.org/projects/asaph
