@@ -4,7 +4,7 @@ date_default_timezone_set("Europe/Berlin");
 define( 'ASAPH_PATH', '../../' );
 
 //show description text or not
-define( 'SHOW_DESCRIPTION', 1);
+define( 'SHOW_DESCRIPTION', 0);
 
 require_once( ASAPH_PATH.'lib/asaph.class.php' );
 
@@ -41,16 +41,21 @@ $p = $asaph->getPost($id);
 	</div>
 <?php } else { ?>
 	<p>
-		<a href="<?php echo $p['source']; ?>"><?php echo nl2br($p['title']); ?></a>
+		<a href="<?php echo $p['source']; ?>"><?php echo ($p['title']); ?></a>
 	</p>
 
 <?php } ?>
 <?php if(SHOW_DESCRIPTION){ ?>
 <p style="width:<?php echo min(640,isset($p['quote'])*640+$p['image']['width']+$p['video']['width']);?>px;"class="description">
 <h1 class="description"><?php echo nl2br($p['title']); ?></h1>
-<p style="width:<?php echo min(640,isset($p['quote'])*640+$p['image']['width']+$p['video']['width']);?>px;" class="description"><?php echo nl2br($p['description']); ?></p>
+<style>
+	p{
+		width:<?php echo min(640,isset($p['quote'])*640+$p['image']['width']+$p['video']['width']);?>px;
+		padding:0px;
+	}
+</style>
+<?php echo nl2br($p['description']); ?>
 <p style="text-align:right;width:<?php echo min(640,isset($p['quote'])*640+$p['image']['width']+$p['video']['width']);?>px;" class="description">
 	via <a href="<?php echo $p['source']; ?>"><?php echo $p['sourceDomain']; ?></a>
 </p>
-</div>
 <?php } ?>

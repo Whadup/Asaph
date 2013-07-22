@@ -3,7 +3,7 @@
 class Asaph_Config {
 	
 	// This title is used in templates and the rss feed
-	public static $title = 'Asaph Blog';
+	public static $title = 'Highball Blog';
 	
 	// Domain name and path where Asaph is installed in
 	public static $domain = 'localhost';

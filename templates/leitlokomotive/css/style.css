@@ -141,4 +141,7 @@ div.headline
   margin-left:50%;
   margin-bottom:10px;
 }
-
+div.post
+{
+	margin-bottom:0px;
+}

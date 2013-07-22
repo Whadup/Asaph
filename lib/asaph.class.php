@@ -155,7 +155,7 @@ class Asaph {
 		$post['sourceDomain'] = $urlParts['host'];
 		$post['source'] = htmlspecialchars( $post['source'] );
 		$post['title'] = htmlspecialchars( $post['title'] );
-		$post['description'] = htmlspecialchars( $post['description'] );
+		$post['description'] = $post['description'];
 		if( $post['image'])
 		{
 			$post['image'] = $this->queryImage($post['image'],$datePath);

@@ -82,9 +82,9 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		postQuoteButton.onclick = function() 
 		{ 
 			that.loadIFrame( {
-				'title': "Quote",
-				'quote' : "To be or not to be.",
-				'speaker' : "Shakespeare",
+				'title': "",
+				'quote' : "A Deep and Meaningful Quote",
+				'speaker' : "",
 				'description' : "...",
 				'source' : document.location.href,
 				'xhrLocation': document.location.href.replace(/#.*$/,''),
@@ -97,7 +97,10 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 
 		var menuBar = document.createElement('div');
 		menuBar.id = 'Asaph_Menu';
-		menuBar.appendChild( document.createTextNode("Asaph // ") );
+		menuBar.style.height= "22px"
+		menuBar.style.paddingTop = "6px";
+		menuBar.style.fontSize = "12pt";
+		menuBar.appendChild( document.createTextNode("Highball: ") );
 		menuBar.appendChild( postSiteButton );
 		menuBar.appendChild( postImageButton );
 		menuBar.appendChild( postQuoteButton );
@@ -120,7 +123,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		this.dialog.id = 'Asaph_Dialog';
 		this.iframe = document.createElement('iframe');
 		this.iframe.src = 'about:blank';
-		this.dialog.appendChild( closeDialog );
+		//this.dialog.appendChild( closeDialog );
 		this.dialog.appendChild( this.iframe );
 		this.menu.appendChild( this.dialog );
 
@@ -156,7 +159,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		else if(type=="tumblr-feed:quote")
 		{
 			this.loadIFrame( {
-				'title': "Quote",
+				'title': "",
 				'quote' : title,
 				'speaker' : description,
 				'description' : "...",

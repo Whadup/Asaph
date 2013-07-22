@@ -68,6 +68,7 @@ function Whitebox( waitFor ) {
 				height = $("#whitebox").height();
 				width = $("#whitebox").width();
 				$("#whitebox").css('position','fixed');
+				$("#whitebox").css('background','white');
 				$("#whitebox").css('top',(document.documentElement.clientHeight - height )/2 + "px");
 				$("#whitebox").css('left',Math.max((document.documentElement.clientWidth - width )/2, 0 ) + "px");
 			
