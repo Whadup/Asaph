@@ -10,10 +10,11 @@
 	tinymce.init({
 	    selector: "textarea#description",
 	    width: "100%",
-	    height: 231,
+	    height: 273,
 	    menubar : false,
-	   	toolbar: "undo redo | bold italic | link image | code",
-	   	plugins: "link,code",
+	    oninit : "setPlainText",
+	   	toolbar: "undo redo | alignjustify aligncenter | bold italic | link image | code ",
+	   	plugins: "link,code,paste",
 	   	skin: "plain",
 	   	statusbar : false,
 	   	convert_urls: true
@@ -54,7 +55,12 @@
     	margin-right: 10px;
     	background-position:center;
     	border-top-left-radius: 10px;
-    	"> </div>
+    	text-align:center;
+    	vertical-align:middle;
+    	line-height:350px;
+    	">
+    		<img id="customizeImage" onclick="$('#customizeImage').replaceWith('<input type=\'text\' value=\'<?php printReqVar('image'); ?>\'/><input type=\'text\' />');" src="gear.png" style="width:50px;height:50px;margin: auto auto;" />
+    	</div>
     <?php } else if( !empty($_POST['video']) || !empty($_GET['video']) ) { ?>
 		<!-- <embed 
 			src="<?php printReqVar('video'); ?>" 
@@ -81,7 +87,7 @@
 			
 		<?php if( !empty($_POST['image']) || !empty($_GET['image']) ) { ?>
 			<dl><!--<dt>Title:</dt>-->
-				<dd><input id="title" type="text" placeholder="Title" name="title" class="long" style="font-weight:bold;font-size:12pt;" value="<?php printReqVar('title'); ?>"/></dd>
+				<!--<dd><input id="title" type="text" placeholder="Title" name="title" class="long" style="font-weight:bold;font-size:12pt;" value="<?php printReqVar('title'); ?>"/></dd>-->
 				<!-- <dt>Image:</dt> -->
 				<!-- <dd> -->
 					<input type="hidden" name="image" placeholder="Image URL" id ="imageForm" class="long" value="<?php printReqVar('image'); ?>"/>
@@ -91,12 +97,12 @@
 					<input type="hidden" name="source" placeholder="Reference" class="long" value="<?php printReqVar('source'); ?>"/>
 				<!-- </dd> -->
 				<!-- <dt>Description:</dt> -->
-				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
+				<dd><textarea id="description" type="text" name="description"><?php printReqVar('description'); ?></textarea></dd>
 				
 		<?php } elseif( !empty($_POST['video']) || !empty($_GET['video']) ) { ?>
 			<dl>	
 				<!-- <dt>Title:</dt> -->
-				<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
+				<!--<dd><input id="title" type="text" name="title" class="long" value="<?php printReqVar('title'); ?>"/></dd>-->
 				
 				<input type="hidden" name="video" class="long" value="<?php printReqVar('video'); ?>"/>
 				<input type="hidden" name="thumb" class="long" value="<?php printReqVar('thumb'); ?>"/>
@@ -122,17 +128,17 @@
 				<!-- <dt>Source:</dt> -->
 			</dl>
 			<dl >
-				<dd><input id="title" type="text" name="title" placeholder = "Title" class="long" value="<?php printReqVar('title'); ?>"/></dd>
-				<dd>
+				<!--<dd><input id="title" type="text" name="title" placeholder = "Title" class="long" value="<?php printReqVar('title'); ?>"/></dd>-->
+				
 					<input type="hidden" name="source" class="long" value="<?php printReqVar('source'); ?>"/>
-				</dd>
+				
 				<!-- <dt>Description:</dt> -->
 				<dd><textarea id="description" type="text" name="description" class="long"><?php printReqVar('description'); ?></textarea></dd>
 				<!-- TODO: Link-->
 		<?php } else { ?>
 			<dl style="width:750px">
 				<!-- <dt>Titel:</dt> -->
-				<dd><input type="text" placeholder="Title" id="title" name="title" value="<?php printReqVar('title'); ?>" /></dd>
+				<!--<dd><input type="text" placeholder="Title" id="title" name="title" value="<?php printReqVar('title'); ?>" /></dd>-->
 				<!-- <dt>Site:</dt> -->
 				<dd>
 					<input type="hidden" name="url" class="long" value="<?php printReqVar('url'); ?>"/>

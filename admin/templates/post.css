@@ -104,7 +104,9 @@ body.Asaph_Post {
 	margin-top:0px;
 	outline:none;
 }
-
+Asaph_Post textarea[id="description"] {
+	height:273px;
+}
 .Asaph_Post textarea[id="quote"] {
 	font-family: Georgia, serif;
 	font-size: 12pt;
@@ -146,7 +148,7 @@ body.Asaph_Post {
 .Asaph_Post input.button {
 	background-color: #00adef;
 	color:white;
-	border: 1px solid #ccc;
+	border: 1px solid darkblue;
 	font-weight: bold;
 	margin-top: 8px;
 	border-bottom-right-radius: 10px;

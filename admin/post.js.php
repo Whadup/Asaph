@@ -47,11 +47,23 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		closeButton.onclick = function() { return that.toggle(); }
 		closeButton.href = '#';
 		
-		
+		var postButton = document.createElement('a');
+		var postActiveButton = postButton;
+		postButton.appendChild( document.createTextNode("Post Story | ") );
+		postButton.onclick = function() { 
+			that.loadIFrame( {
+				'title': title,
+				'url': '',
+				'xhrLocation': document.location.href.replace(/#.*$/,'')
+			});
+			postActiveButton.style.color="#666";
+			postActiveButton = postSiteButton;
+			postActiveButton.style.color="#00adef";
+		}
+		postButton.href = '#';
 
 		var postSiteButton = document.createElement('a');
-		var postActiveButton = postSiteButton;
-		postSiteButton.appendChild( document.createTextNode("Post Site | ") );
+		postSiteButton.appendChild( document.createTextNode("Post Link | ") );
 		postSiteButton.onclick = function() { 
 			that.selectSite(); 
 			postActiveButton.style.color="#666";
@@ -101,6 +113,7 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		menuBar.style.paddingTop = "6px";
 		menuBar.style.fontSize = "12pt";
 		menuBar.appendChild( document.createTextNode("Highball: ") );
+		menuBar.appendChild( postButton );
 		menuBar.appendChild( postSiteButton );
 		menuBar.appendChild( postImageButton );
 		menuBar.appendChild( postQuoteButton );
@@ -242,7 +255,8 @@ function Asaph_RemotePost( postURL, stylesheet ) {
 		this.loadIFrame( {
 			'title': title,
 			'url': document.location.href,
-			'xhrLocation': document.location.href.replace(/#.*$/,'')
+			'xhrLocation': document.location.href.replace(/#.*$/,''),
+			'description' : '<p><a href="'+document.location.href+'">'+document.location.href+'</a></p>'
 		});
 		return false;
 	}

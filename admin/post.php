@@ -18,17 +18,17 @@ else if( !empty($_POST['post'])){ //} && (!empty($_POST['image']) || !empty($_PO
 	if( !empty($_POST['image']) ) {
 		$status = $asaphPost->postImage( $_POST['image'], $_POST['source'], $_POST['title'], $_POST['description'] );
 	}
-	if( !empty($_POST['video']) ) {
+	else if( !empty($_POST['video']) ) {
 		$status = $asaphPost->postVideo( $_POST['video'], $_POST['source'], $_POST['video_type'], $_POST['width'], $_POST['height'], $_POST['thumb'], $_POST['title'], $_POST['description'] );
 	}
-	if( !empty($_POST['quote']) ) {
+	else if( !empty($_POST['quote']) ) {
 		$status = $asaphPost->postQuote( $_POST['quote'], $_POST['source'], $_POST['speaker'], $_POST['title'], $_POST['description'] );
 	}
-	//TODO: QUOTE AND LINK
-	if( !empty($_POST['url']) ) {
+	else
+	{
 		$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'], $_POST['description'] );
 	}
-	
+	echo $status;
 	if( $status === true ) {
 		include( ASAPH_PATH.'admin/templates/remote-success.html.php' );
 	} else {

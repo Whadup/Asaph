@@ -57,7 +57,7 @@
 			    	<h1><?php if($p['quote']) echo $p['quote']['speaker']; else echo $p['title']; ?></h1>
 					<h2><?php echo date("d/m/y",$p['created']); ?></h2>
 				</div>
-				<p style="<?php if(strlen($p['description'])<200) echo "column-span: all;-webkit-column-span: all;" ?>"><?php echo $p['description']; ?></p>
+				<div style="<?php if(strlen($p['description'])<500) echo "column-span: all;-webkit-column-span: all;" ?>"><?php echo $p['description']; ?></div>
 			</div>
 		<?php } ?>
     <script src="<?php echo Asaph_Config::$absolutePath; ?>templates/leitlokomotive/js/index.js" type="text/javascript"></script>
