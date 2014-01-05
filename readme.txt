@@ -8,7 +8,7 @@ Highball is basically a small tumblr, but I know you love hosting your own blog
 using open source technology, PHP and MySQL.
 
 Author: Dominic Szablewski and Lukas Pfahler
-Web: http://www.phoboslab.org/projects/asaph
+Web: http://www.phoboslab.org/projects/asaph & http://leitlokomotive.de
 
 
 Requirements & Installation
