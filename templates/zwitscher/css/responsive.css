@@ -111,6 +111,7 @@ body
 	padding:0px;
 	margin:0px;
 	padding-bottom:20px;
+	border-top: 15px solid #F8C461;
 }
 h1
 {
@@ -390,10 +391,44 @@ img.fixedSize:after
    Modify as content requires.
    ========================================================================== */
 
-@media only screen and (min-width: 35em) {
+@media only screen and (max-width: 632px) {
+	li p
+	{
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0px 10px;
+		margin: 0px auto;
+		text-align:justify;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		hyphens: auto;
+	}
+
+	li div.footer
+	{
+		margin:5px auto 0px auto;
+		padding-left:20px;
+		padding-right: 10px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	li > img, li > embed, li > quote
+	{
+		width: 100%;
+		margin:0px auto 20px auto;
+		padding: 0px 10px;
+		box-sizing: border-box;
+		display:block;
+	}
 	/* Style adjustments for viewports that meet the condition */
 }
-
+@media only screen and (max-width: 500px) {
+	body{
+		font-size:14px;
+		line-height:19px;
+	}
+}
 @media print,
 	   (-o-min-device-pixel-ratio: 5/4),
 	   (-webkit-min-device-pixel-ratio: 1.25),

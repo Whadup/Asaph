@@ -1,4 +1,8 @@
-<?php header('Content-Type: application/rss+xml; charset=utf-8'); echo '<?xml version="1.0" encoding="utf-8"?>';?>
+<?php 
+	header('Content-Type: application/xml; charset=utf-8'); 
+	echo '<?xml version="1.0" encoding="utf-8"?>';
+	echo "\n";
+?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 	<atom:link href="http://<?php echo Asaph_Config::$domain.ASAPH_LINK_PREFIX ?>feed" rel="self" type="application/rss+xml" />
@@ -12,15 +16,22 @@
 			<title><?php echo $p['title']; ?></title>
 			<link><?php echo $p['source']; ?></link>
 			<description>
-				<?php if( $p['image'] ) { ?>
-					&lt;a href=&quot;http://<?php echo Asaph_Config::$domain.$p['image']; ?>&quot;&gt;
-						&lt;img src=&quot;http://<?php echo Asaph_Config::$domain.$p['thumb']; ?>&quot; alt=&quot;&quot;/&gt;
-					&lt;/a&gt;
-				<?php } else { ?>
-					&lt;p&gt;
-						<?php echo htmlspecialchars(nl2br($p['title'])); ?>
-					&lt;/p&gt;
-				<?php } ?>
+				<?php echo "<![CDATA[";?>
+				<?php if( $p['image'] ): ?>
+						<a href="http://<?php echo Asaph_Config::$domain.$p['image']['image']; ?>">
+						<img src="http://<?php echo Asaph_Config::$domain.$p['image']['thumb']; ?>"; alt="">
+					</a>
+				<?php elseif( $p['video'] ): ?>
+					<embed src="<?php echo $p['video']['src']; ?>" type="<?php echo $p['video']['type'];?>" width="612" height="<?php echo ($p['video']['height']*612/$p['video']['width']);?>" />
+				<?php elseif( $p['quote'] ) : ?>
+					<quote <?php if(strlen($p['quote']['quote'])>200) echo "length=\"long\""; ?>>
+						»<?php echo $p['quote']['quote']; ?>«
+						<div style="font-style:normal;line-height:200%;font-size:80%;">- <?php echo $p['quote']['speaker']; ?> -</div>
+					</quote>          
+				<?php endif; ?>
+				
+				<?php echo $p['description']; ?>
+				<?php echo "]]>";?>
 			</description>
 			<pubDate><?php echo date('r', $p['created']); ?></pubDate>
 			<guid isPermaLink="false"><?php echo ASAPH_BASE_URL.$p['id']; ?></guid>
